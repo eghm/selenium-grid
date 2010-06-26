@@ -4,6 +4,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Launch a Self-registering Selenium Remote Control.
@@ -19,6 +21,14 @@ public class SelfRegisteringRemoteControlLauncher {
         final OptionParser.Options options;
 
         options = new OptionParser().parseOptions(args);
+        if ("hostaddress".equals(options.host())) {
+            try {
+            	options.setHost(InetAddress.getLocalHost().getHostAddress());
+            } catch (Exception e) {
+                LOGGER.error("Unable to set Host Address.  Exception: " + e.getMessage() +
+                		"  Set host with host parameter or resolve exception and run again.");
+            }
+        }
         registrationInfo = new RegistrationInfo(
                 options.hubURL(), options.environment(), options.host(), options.port());
         server = new SelfRegisteringRemoteControl(registrationInfo,

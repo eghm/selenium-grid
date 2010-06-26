@@ -1,6 +1,9 @@
 <project name="Selenium Grid Distribution" basedir=".">
 
   <description>Selenium Grid Distribution</description>
+
+  <property name="userPropertiesName" value="selenium-grid"/>
+  <property file="${user.home}/${userPropertiesName}.properties"/>
   <property file="${basedir}/project.properties"/>
   <property name="version" value="SNAPSHOT"/>
 
